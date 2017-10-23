@@ -18,14 +18,12 @@ defmodule BtwBrainfuck.CLI do
             aliases: [ h: :help, c: :cmd ])
 
         case parse do
-            { [ [ help: true ], _, _ ] }
+            { [ help: true ], _, _ }
                 -> :help
-            { [ [ command ], _, _ ] }
-                -> { command }
-            { [ nil, _, _ ] }
+            { [ command ], _, _ }
+                -> command
+            { _, _, _ }
                 -> :help
-        end
-
-        to_string parse        
+        end       
     end
 end
