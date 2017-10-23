@@ -1,18 +1,5 @@
 defmodule BtwBrainfuck do
-  @moduledoc """
-  Documentation for BtwBrainfuck.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> BtwBrainfuck.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def main() do
+    IO.puts "Hello world"
   end
 end
