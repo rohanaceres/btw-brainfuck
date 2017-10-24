@@ -4,5 +4,6 @@ defmodule Interpreter do
     """
     def execute(command) do
         IO.puts command
+        :ok
     end
 end

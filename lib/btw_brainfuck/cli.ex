@@ -28,11 +28,12 @@ defmodule BtwBrainfuck.CLI do
         end       
     end
     @doc """
-        Run brainfuck command received by command line.
+        Run brainfuck command script received by command line.
     """
     def process(command) do
-        if command != :help do
-            Interpreter.execute command
+        cond do
+            command == :help -> :help
+            true -> Interpreter.execute command
         end
     end
 end
