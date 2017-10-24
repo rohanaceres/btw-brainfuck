@@ -4,13 +4,14 @@ defmodule BtwBrainfuck.CLI do
     """
 
     @doc """
-        TODO
+        Parse command line arguments and process it.
     """
     def run(argv) do
-        parse_arguments(argv)
+        process parse_arguments argv
     end
     @doc """
-        TODO
+        Parse arguments received by command line. It shows help if "--help" or "-h" and if the command
+        is empty.
     """
     def parse_arguments(argv) do
         parse = OptionParser.parse(argv, 
@@ -25,5 +26,13 @@ defmodule BtwBrainfuck.CLI do
             { _, _, _ }
                 -> :help
         end       
+    end
+    @doc """
+        Run brainfuck command received by command line.
+    """
+    def process(command) do
+        if command != :help do
+            Interpreter.execute command
+        end
     end
 end
