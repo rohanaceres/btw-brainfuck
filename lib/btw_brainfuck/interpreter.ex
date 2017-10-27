@@ -62,13 +62,12 @@ defmodule Interpreter do
                     track)
                 :ok
             String.slice(command, 0..0) == "<" ->
-                if track == [] do
-                    track ++ [ 0 ]
-                end
                 if current_index > 0 do
-                    current_index =- 1
+                    current_index = current_index - 1
                 end
-                track = insert_at(track, current_index, 0)
+                if Enum.at(track, current_index) == nil do
+                    track = insert_at(track, current_index, 0)
+                end
                 execute(
                     String.slice(command, 1..String.length(command)), 
                     String.length(command) - 1,
