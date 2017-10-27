@@ -52,7 +52,9 @@ defmodule Interpreter do
                 if track == [] do
                     track ++ [ 0 ]
                 end
-                track = insert_at(track, current_index + 1, 0)
+                if Enum.at(track, current_index + 1) == nil do
+                    track = insert_at(track, current_index + 1, 0)
+                end
                 execute(
                     String.slice(command, 1..String.length(command)), 
                     String.length(command) - 1,
