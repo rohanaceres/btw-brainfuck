@@ -35,6 +35,19 @@ defmodule Interpreter do
                     current_index,
                     track)
                 :ok
+            String.slice(command, 0..0) == "-" ->
+                old_value = Enum.at(track, current_index)
+                if old_value != nil do
+                    track = delete_at(track, current_index)
+                    track = insert_at(track, current_index, old_value - 1)
+                end
+
+                execute(
+                    String.slice(command, 1..String.length(command)), 
+                    String.length(command) - 1,
+                    current_index,
+                    track)
+                :ok
             true 
                 -> :error
         end
