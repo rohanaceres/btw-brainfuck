@@ -15,67 +15,69 @@ defmodule Interpreter do
         Recursively interprets and executes an entire command line in brainfuck.
     """
     def execute(command, length, current_index, track) do
-        IO.puts("command '#{command}'")
-        IO.puts("length '#{length}'")
-        IO.puts("current_index '#{current_index}'")
-        IO.puts("track '#{Enum.join(track, ", ")}'")
+        #IO.puts("command '#{command}'")
+        #IO.puts("length '#{length}'")
+        #IO.puts("current_index '#{current_index}'")
+        #IO.puts("track '#{Enum.join(track, ", ")}'")
 
-        cond do
-            String.slice(command, 0..0) == "+" ->
-                old_value = Enum.at(track, current_index)
-                if old_value == nil do
-                    old_value = 0
-                end
-                track = delete_at(track, current_index)
-                track = insert_at(track, current_index, old_value + 1)
+        if length == 0 do
+            track
+        else
+            cond do
+                String.slice(command, 0..0) == "+" ->
+                    old_value = Enum.at(track, current_index)
+                    if old_value == nil do
+                        old_value = 0
+                    end
+                    track = delete_at(track, current_index)
+                    track = insert_at(track, current_index, old_value + 1)
 
-                execute(
-                    String.slice(command, 1..String.length(command)), 
-                    String.length(command) - 1,
-                    current_index,
-                    track)
-                :ok
-            String.slice(command, 0..0) == "-" ->
-                old_value = Enum.at(track, current_index)
-                if old_value != nil do
+                    track = execute(
+                        String.slice(command, 1..String.length(command)), 
+                        String.length(command) - 1,
+                        current_index,
+                        track)
+                    track
+                String.slice(command, 0..0) == "-" ->
+                    old_value = Enum.at(track, current_index)
+                    if old_value == nil do
+                        old_value = 0
+                    end
+
                     track = delete_at(track, current_index)
                     track = insert_at(track, current_index, old_value - 1)
-                end
-
-                execute(
-                    String.slice(command, 1..String.length(command)), 
-                    String.length(command) - 1,
-                    current_index,
-                    track)
-                :ok
-            String.slice(command, 0..0) == ">"-> 
-                if track == [] do
-                    track ++ [ 0 ]
-                end
-                if Enum.at(track, current_index + 1) == nil do
-                    track = insert_at(track, current_index + 1, 0)
-                end
-                execute(
-                    String.slice(command, 1..String.length(command)), 
-                    String.length(command) - 1,
-                    current_index + 1,
-                    track)
-                :ok
-            String.slice(command, 0..0) == "<" ->
-                if current_index > 0 do
-                    current_index = current_index - 1
-                end
-                if Enum.at(track, current_index) == nil do
-                    track = insert_at(track, current_index, 0)
-                end
-                execute(
-                    String.slice(command, 1..String.length(command)), 
-                    String.length(command) - 1,
-                    current_index,
-                    track)
-                :ok
-            true 
-                -> :error
+                    track = execute(
+                        String.slice(command, 1..String.length(command)), 
+                        String.length(command) - 1,
+                        current_index,
+                        track)
+                    track
+                String.slice(command, 0..0) == ">"-> 
+                    if track == [] do
+                        track ++ [ 0 ]
+                    end
+                    if Enum.at(track, current_index + 1) == nil do
+                        track = insert_at(track, current_index + 1, 0)
+                    end
+                    track = execute(
+                        String.slice(command, 1..String.length(command)), 
+                        String.length(command) - 1,
+                        current_index + 1,
+                        track)
+                    track
+                String.slice(command, 0..0) == "<" ->
+                    if Enum.at(track, current_index - 1) == nil do
+                        track = insert_at(track, current_index - 1, 0)
+                    end
+                    track = execute(
+                        String.slice(command, 1..String.length(command)), 
+                        String.length(command) - 1,
+                        current_index - 1,
+                        track)
+                    track
+                true 
+                    -> :error
+            end
         end
     end
 end

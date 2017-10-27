@@ -4,9 +4,9 @@ defmodule InterpreterTest do
 
     import Interpreter
   
-    test ":ok returned if '<++>>--' brainfuck script and track [ 1, <2>, 3 ]" do
+    test "[ 3, 2, 1 ] returned if '<++>>--' brainfuck script and track [ 1, <2>, 3 ]" do
         cmd = "<++>>--"
         track = [ 1, 2, 3 ]
-        assert execute(cmd, String.length(cmd), 1, track) == :ok
+        assert execute(cmd, String.length(cmd), 1, track) == [ 3, 2, 1]
     end
   end

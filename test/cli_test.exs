@@ -23,16 +23,16 @@ defmodule CliTest do
     test ":error returned if command is invalid brainfuck script" do
         assert process("blabla") == :error
     end
-    test ":ok returned if valid '++++++' brainfuck script" do
-        assert process("++++++") == :ok
+    test "[ 6 ] returned if valid '++++++' brainfuck script" do
+        assert process("++++++") == [ 6 ]
     end
-    test ":ok returned if valid '------' brainfuck script" do
-        assert process("------") == :ok
+    test "[ -6 ] returned if valid '------' brainfuck script" do
+        assert process("------") == [ -6 ] 
     end
-    test ":ok returned if valid '>+>++>+++>++++>+++++>++++++' brainfuck script" do
-        assert process(">+>++>+++>++++>+++++>++++++") == :ok
+    test "[ 0, 1, 2, 3, 4, 5, 6 ] returned if valid '>+>++>+++>++++>+++++>++++++' brainfuck script" do
+        assert process(">+>++>+++>++++>+++++>++++++") == [ 0, 1, 2, 3, 4, 5, 6 ]
     end
-    test ":ok returned if valid '+<++<+++<++++<+++++<++++++' brainfuck script" do
-        assert process("+<++<+++<++++<+++++<++++++") == :ok
+    test "[ 6, 5, 4, 3, 2, 1 ] returned if valid '+<++<+++<++++<+++++<++++++' brainfuck script" do
+        assert process("+<++<+++<++++<+++++<++++++") == [ 6, 5, 4, 3, 2, 1 ]
     end
   end
