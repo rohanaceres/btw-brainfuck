@@ -66,13 +66,15 @@ defmodule Interpreter do
                         track)
                     track
                 String.slice(command, 0..0) == "<" ->
-                    if Enum.at(track, current_index - 1) == nil do
-                        track = insert_at(track, current_index - 1, 0)
+                    if current_index == 0 do
+                        track = [ 0 ] ++ track
+                    else
+                        current_index = current_index - 1
                     end
                     track = execute(
                         String.slice(command, 1..String.length(command)), 
                         String.length(command) - 1,
-                        current_index - 1,
+                        current_index,
                         track)
                     track
                 true 
