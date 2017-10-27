@@ -48,6 +48,17 @@ defmodule Interpreter do
                     current_index,
                     track)
                 :ok
+            String.slice(command, 0..0) == ">"-> 
+                if track == [] do
+                    track ++ [ 0 ]
+                end
+                track = insert_at(track, current_index + 1, 0)
+                execute(
+                    String.slice(command, 1..String.length(command)), 
+                    String.length(command) - 1,
+                    current_index + 1,
+                    track)
+                :ok
             true 
                 -> :error
         end

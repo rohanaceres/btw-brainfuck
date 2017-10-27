@@ -29,4 +29,7 @@ defmodule CliTest do
     test ":ok returned if valid '------' brainfuck script" do
         assert process("------") == :ok
     end
+    test ":ok returned if valid '>+>++>+++>++++>+++++>++++++' brainfuck script" do
+        assert process(">+>++>+++>++++>+++++>++++++") == :ok
+    end
   end
