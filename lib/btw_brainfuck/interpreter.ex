@@ -84,6 +84,12 @@ defmodule Interpreter do
                     current_index,
                     track)
                 track
+            # Reads a single input character into the current cell:
+            String.slice(command, 0..0) == "," ->
+                { user_input, "\n" } = Integer.parse(IO.gets "Input for the current cell: ")
+                track = delete_at(track, current_index)
+                track = insert_at(track, current_index, user_input)
+                track
             true 
                 -> :error
         end
