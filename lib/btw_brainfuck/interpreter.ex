@@ -18,6 +18,7 @@ defmodule Interpreter do
         cond do
             length == 0
                 -> track
+            # Increments the value at the current cell by one:
             String.slice(command, 0..0) == "+" ->
                 old_value = Enum.at(track, current_index)
                 if old_value == nil do
@@ -32,6 +33,7 @@ defmodule Interpreter do
                     current_index,
                     track)
                 track
+            # Decrements the value at the current cell by one:
             String.slice(command, 0..0) == "-" ->
                 old_value = Enum.at(track, current_index)
                 if old_value == nil do
@@ -46,9 +48,10 @@ defmodule Interpreter do
                     current_index,
                     track)
                 track
+            # Moves the data pointer to the next cell (cell on the right):
             String.slice(command, 0..0) == ">"-> 
                 if track == [] do
-                    track ++ [ 0 ]
+                    track = track ++ [ 0 ]
                 end
                 if Enum.at(track, current_index + 1) == nil do
                     track = insert_at(track, current_index + 1, 0)
@@ -59,12 +62,22 @@ defmodule Interpreter do
                     current_index + 1,
                     track)
                 track
+            # Moves the data pointer to the previous cell (cell on the left):
             String.slice(command, 0..0) == "<" ->
                 if current_index == 0 do
                     track = [ 0 ] ++ track
                 else
                     current_index = current_index - 1
                 end
+                track = execute(
+                    String.slice(command, 1..String.length(command)), 
+                    String.length(command) - 1,
+                    current_index,
+                    track)
+                track
+            # Prints the ASCII value at the current cell (i.e. 65 = 'A'):
+            String.slice(command, 0..0) == "." ->
+                IO.inspect "Current cell as ASCII: '#{[ Enum.at(track, current_index) ]}'"
                 track = execute(
                     String.slice(command, 1..String.length(command)), 
                     String.length(command) - 1,

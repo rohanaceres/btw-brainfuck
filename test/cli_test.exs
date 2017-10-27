@@ -35,4 +35,7 @@ defmodule CliTest do
     test "[ 6, 5, 4, 3, 2, 1 ] returned if valid '+<++<+++<++++<+++++<++++++' brainfuck script" do
         assert process("+<++<+++<++++<+++++<++++++") == [ 6, 5, 4, 3, 2, 1 ]
     end
+    test "[ 42 ] returned if valid '++++++++++++++++++++++++++++++++++++++++++.' brainfuck script" do
+        assert process("++++++++++++++++++++++++++++++++++++++++++.") == [ 42 ]
+    end
   end
