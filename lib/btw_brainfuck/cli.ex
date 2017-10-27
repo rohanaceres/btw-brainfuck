@@ -32,8 +32,10 @@ defmodule BtwBrainfuck.CLI do
     """
     def process(command) do
         cond do
-            command == :help -> :help
-            true -> Interpreter.execute command
+            command == :help 
+                -> :help
+            true 
+                -> Interpreter.execute command
         end
     end
 end

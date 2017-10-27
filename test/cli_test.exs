@@ -17,10 +17,13 @@ defmodule CliTest do
     end
 
     # process tests
-    test ":help returned if :help sent as argument" do
-        assert process(:help) == :help
-    end
-    test ":ok returned if :help NOT sent as argument" do
-        assert process("something other than :help") == :ok
+    # test ":help returned if :help sent as argument" do
+    #     assert process(:help) == :help
+    # end
+    # test ":error returned if command is invalid brainfuck script." do
+    #     assert process("blabla") == :error
+    # end
+    test "testing" do
+        assert process("++++++") == :ok
     end
   end
